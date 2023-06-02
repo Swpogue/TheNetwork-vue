@@ -3,6 +3,9 @@
     <Navbar />
   </header>
   <main>
+    <div class="row" id="banner">
+      <BannerCard />
+    </div>
     <router-view />
   </main>
    
@@ -16,7 +19,8 @@ import Navbar from './components/Navbar.vue'
 export default {
   setup() {
     return {
-      appState: computed(() => AppState)
+      appState: computed(() => AppState),
+      ads: computed(()=> AppState.ads)
     }
   },
   components: { Navbar }
@@ -28,7 +32,9 @@ export default {
 :root{
   --main-height: calc(100vh - 32px - 64px);
 }
-
+#banner{
+  justify-content: end;
+}
 
 footer {
   display: grid;

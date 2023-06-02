@@ -1,18 +1,18 @@
 <template>
- <div class="card">
+ <div class="card my-2">
         <div class="card-body">
             <div class="row ">
                 <div class="col-12 d-flex justify-content-between">
 
                 
                     <router-link :to="{name: 'Profile', params: { id: post?.creatorId }}">
-                    <img class="rounded-circle post-imgUrl" :src="post?.profilePic" alt="">
+                    <img class="rounded-circle post-imgUrl" :src="post?.profilePic" :alt="post?.creator.name">
                 </router-link>
                 
-                    <img class="rounded-circle post-imgUrl" :src="post?.imgUrl" alt="">
+                    <img class="rounded-circle post-imgUrl" :src="post?.imgUrl" :alt="post?.creator.name">
                 </div>
             </div>
-            <p class="fw-bold">{{blog?.creatorName}}</p>
+            <p class="fw-bold">{{post?.creator.name}}</p>
             <p>
                {{ post?.body }}
             </p>
@@ -30,7 +30,7 @@ export default {
   props:{
     post: {type: Post, required: true}
   },
-  setup(props){
+  setup(){
     return {}
   }
 }

@@ -7,12 +7,21 @@ class PostsService{
   
     async getPosts(){
       const res = await api.get('api/posts')
-      logger.log(res.data)
+      // logger.log(res.data)
       AppState.posts = res.data.posts.map(p=> new Post(p));
+      AppState.older = res.data.older;
+      AppState.newer = res.data.newer;
 
       logger.log('POSTS', res.data)
       
     
+  }
+  async changePage(url) {
+    const res = await api.get(url);
+    // logger.log(res.data);
+    AppState.posts = res.data.posts.map(p=> new Post(p));
+    AppState.older = res.data.older;
+    AppState.newer = res.data.newer;
   }
   async getPostsByProfile(id) {
     AppState.posts = []
