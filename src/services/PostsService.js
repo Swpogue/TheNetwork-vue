@@ -18,7 +18,7 @@ class PostsService{
   }
   async changePage(url) {
     const res = await api.get(url);
-    // logger.log(res.data);
+    logger.log('POSTs',res.data);
     AppState.posts = res.data.posts.map(p=> new Post(p));
     AppState.older = res.data.older;
     AppState.newer = res.data.newer;
@@ -31,6 +31,9 @@ class PostsService{
       }
     })
     AppState.posts = res.data.posts.map(p=> new Post(p));
+    AppState.older = res.data.older;
+    AppState.newer = res.data.newer;
+    // logger.log('PROFILE', res.data)
 }
 }
 

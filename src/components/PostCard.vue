@@ -9,14 +9,13 @@
                     <img class="rounded-circle post-imgUrl" :src="post?.profilePic" :alt="post?.creator.name">
                 </router-link>
                 
-                    <img class="rounded-circle post-imgUrl" :src="post?.imgUrl" :alt="post?.creator.name">
+                    <img class="rounded post-img" :src="post?.imgUrl" :alt="post?.creator.name">
                 </div>
             </div>
             <p class="fw-bold">{{post?.creator.name}}</p>
             <p>
-               {{ post?.body }}
-            </p>
-
+               {{ post?.body }} 
+            </p> 
         </div>
     </div>
 
@@ -43,4 +42,9 @@ export default {
     aspect-ratio: 1/1;
     object-fit: cover;
 }
+.post-img{
+  height: 300px;
+  object-fit: cover;
+}
+
 </style>

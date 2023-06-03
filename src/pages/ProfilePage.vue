@@ -1,5 +1,9 @@
 
 <template>
+    <div class="p-4">
+    <button :disabled="!newer" @click="changePage(newer)" class="btn btn-light">Previous</button>
+    <button :disabled="!older" @click="changePage(older)" class="btn btn-light">Next</button>
+  </div>
   <div class="profile-page">
 
       <div class="container">
@@ -64,8 +68,16 @@ export default {
 
       return {
           profile: computed(() => AppState.activeProfile),
-          posts: computed(() => AppState.posts)
-
+          posts: computed(() => AppState.posts),
+          older: computed(()=> AppState.older),
+          newer: computed(()=> AppState.newer),
+      async changePage(url){
+        try {
+          await postsService.changePage(url)
+        } catch (error) {
+          Pop.error(error)
+        }
+      }
       }
   }
 }

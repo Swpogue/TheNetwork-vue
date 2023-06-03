@@ -20,7 +20,7 @@ export default {
     onMounted(()=> {getAds();
       async function getAds(){
         try {
-          logger.log('ADS SUCK!')
+          // logger.log('ADS SUCK!')
           await bannersService.getAds();
         } catch (error) {
           Pop.error(error)
