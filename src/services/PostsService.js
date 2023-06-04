@@ -41,16 +41,21 @@ class PostsService {
     logger.log("LIKES?", id)
     const res = await api.post(`api/posts/${id}/like`)
     logger.log("LIKES?", res.data)
-    let postIndex = AppState.posts.findIndex((p) => p.id == id)
-    AppState.posts.splice(postIndex, 1, new Post(res.data))
+    let index = AppState.posts.findIndex((p) => p.id == id)
+    AppState.posts.splice(index, 1, new Post(res.data))
   }
 
   async createPost(postData){
     const res = await api.post('api/posts', postData)
-    const newPost = new Post(res.data)
-    AppState.posts.push(newPost)
+    // const newPost = new Post(res.data) this didn't remove from page without page refresh
+    AppState.posts.unshift(new Post(res.data))
   }
 
+  async deletePost(postId){
+    const res = await api.delete(`api/posts/${postId}`)
+    logger.log('Post Deleted', res.data)
+    AppState.posts = AppState.posts.filter(p => p.id != postId)
+  }
 }
 
 

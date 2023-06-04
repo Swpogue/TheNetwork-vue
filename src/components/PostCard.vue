@@ -1,25 +1,26 @@
 <template>
- <div class="card my-2">
+ <div class="card my-2 elevation-4">
         <div class="card-body">
             <div class="row ">
                 <div class="col-12 d-flex justify-content-between">
-
-                
-                    <router-link :to="{name: 'Profile', params: { id: post?.creatorId }}">
-                    <img class="rounded-circle post-imgUrl" :src="post?.profilePic" :alt="post?.creator.name">
+                <router-link :to="{name: 'Profile', params: { id: post?.creatorId }}">
+                <img class="rounded-circle post-imgUrl" :src="post?.profilePic" :alt="post?.creator.name">
+                <p class="fw-bold pt-2">{{post?.creator.name}}</p>
                 </router-link>
-                
-                    <img class="rounded post-img" :src="post?.imgUrl" :alt="post?.creator.name">
+                <img class="rounded post-img" :src="post?.imgUrl" :alt="post?.creator.name">
                 </div>
             </div>
-            <p class="fw-bold">{{post?.creator.name}}</p>
+            
             <p>
                {{ post?.body }} 
             </p> 
-        </div>
-        <div>
-          <i @click="likePost(post.id)" class="selectable p-1 mdi mdi-heart"></i>
-          <p>{{ post.likes.length }}</p>
+          </div>
+          <div class="ps-2">
+            <span>Created: {{ post?.createdAt }}</span>
+          </div>
+          <div class="text-end p-2 d-flex" id="I-tag">
+            <i @click="likePost(post.id)" class="selectable p-1 mdi mdi-heart">  <span>{{ post.likes.length }}</span></i>
+            <i v-if="post.creatorId == account.id" @click="deletePost(post.id)" class="selectable p-1 mdi mdi-delete"></i>
         </div>
     </div>
 
@@ -38,7 +39,7 @@ export default {
   props:{
     post: {type: Post, required: true}
   },
-  setup(){
+  setup(props){
     return {
       account: computed(()=> AppState.account),
       
@@ -49,7 +50,20 @@ export default {
         } catch (error) {
           Pop.error(error)
         }
+      },
+
+      async deletePost(){
+        try {
+          const postId = props.post.id
+          logger.log('DELETING?')
+          if(await Pop.confirm('Delete Post?'))
+          await postsService.deletePost(postId)
+        } catch (error) {
+          Pop.error(error)
+        }
       }
+
+
     }
   }
 }
@@ -65,6 +79,14 @@ export default {
 .post-img{
   height: 300px;
   object-fit: cover;
+}
+
+.card{
+  background-color: rgb(60, 176, 193);
+}
+
+#I-tag{
+  justify-content: space-between;
 }
 
 </style>
