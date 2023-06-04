@@ -2,7 +2,7 @@
   <header>
     <Navbar />
   </header>
-  <main>
+  <main class="container-fluid">
     <div class="row" id="banner">
       <BannerCard />
     </div>
@@ -20,7 +20,8 @@ export default {
   setup() {
     return {
       appState: computed(() => AppState),
-      ads: computed(()=> AppState.ads)
+      ads: computed(()=> AppState.ads),
+      profile: computed(()=> AppState.profile)
     }
   },
   components: { Navbar }

@@ -17,20 +17,40 @@
                {{ post?.body }} 
             </p> 
         </div>
+        <div>
+          <i @click="likePost(post.id)" class="selectable p-1 mdi mdi-heart"></i>
+          <p>{{ post.likes.length }}</p>
+        </div>
     </div>
 
 </template>
 
 
 <script>
+import { computed } from "vue";
 import { Post } from "../models/Post.js";
+import { AppState } from "../AppState.js";
+import Pop from "../utils/Pop.js";
+import { postsService } from "../services/PostsService.js";
+import { logger } from "../utils/Logger.js";
 
 export default {
   props:{
     post: {type: Post, required: true}
   },
   setup(){
-    return {}
+    return {
+      account: computed(()=> AppState.account),
+      
+      async likePost(id){
+        try {
+          logger.log('[POST LIKED]', id)
+          await postsService.likePost(id)
+        } catch (error) {
+          Pop.error(error)
+        }
+      }
+    }
   }
 }
 </script>
