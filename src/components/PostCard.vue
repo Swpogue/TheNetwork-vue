@@ -3,11 +3,11 @@
         <div class="card-body">
             <div class="row ">
                 <div class="col-12 d-flex justify-content-between">
-                <router-link :to="{name: 'Profile', params: { id: post?.creatorId }}">
-                <img class="rounded-circle post-imgUrl" :src="post?.profilePic" :alt="post?.creator.name">
-                <p class="fw-bold pt-2">{{post?.creator.name}}</p>
-                </router-link>
-                <img class="rounded post-img" :src="post?.imgUrl" :alt="post?.creator.name">
+                   <router-link :to="{name: 'Profile', params: { id: post?.creatorId }}">
+                     <img class="rounded-circle post-imgUrl" :src="post?.profilePic" :alt="post?.creator.name">
+                     <p class="fw-bold pt-2">{{post?.creator.name}}</p>
+                   </router-link>
+                  <img class="rounded post-img" :src="post?.imgUrl" :alt="post?.creator.name">
                 </div>
             </div>
             
@@ -58,6 +58,15 @@ export default {
           logger.log('DELETING?')
           if(await Pop.confirm('Delete Post?'))
           await postsService.deletePost(postId)
+        } catch (error) {
+          Pop.error(error)
+        }
+      },
+
+      async editPost(){
+        try {
+          const postId = props.post.id
+          await postsService.editPost(postId)
         } catch (error) {
           Pop.error(error)
         }

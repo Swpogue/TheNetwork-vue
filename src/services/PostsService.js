@@ -13,7 +13,7 @@ class PostsService {
     AppState.older = res.data.older;
     AppState.newer = res.data.newer;
 
-    logger.log('POSTS', res.data)
+    // logger.log('POSTS', res.data)
 
 
   }
@@ -56,6 +56,12 @@ class PostsService {
     logger.log('Post Deleted', res.data)
     AppState.posts = AppState.posts.filter(p => p.id != postId)
   }
+
+  async searchPosts(query){
+    const res = await api.get('api/posts', {params: query})
+    AppState.posts = res.data.posts.map(p => new Post(p))
+  }
+
 }
 
 

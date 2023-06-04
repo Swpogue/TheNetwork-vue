@@ -6,7 +6,7 @@ class BannersService {
   async getAds(){
     const res = await api.get('api/ads')
     AppState.ads = res.data;
-    logger.log('ADS', res.data)
+    // logger.log('ADS', res.data)
   }
    
 }

@@ -1,25 +1,25 @@
 <template>
-  <section class="row justify-content-center" v-if="account.id">
-      <div class="col-8 card p-2">
-        <form @submit.prevent="createPost()" class="card elevation-3">
-          <div class="m-2 d-flex">
-            <img  id="profile-img" class="p-2" :src="account.picture" :alt="account.name">
-            <textarea v-model="editable.body" class="comment-form" placeholder="Comment here"
-            id="textarea"></textarea>
-            <label for="textarea"></label>
-          </div>
-          <div class="input-group mb-3 p-2">
-            <span class="input-group-text" id="inputGroup-sizing-default">URL</span>
-            <input v-model="editable.imgUrl" type="url" class="url-form" aria-label="Url for picture"
-              aria-describedby="inputGroup-sizing-default">
-          </div>
-          <button class="btn btn-primary m-2">Post IT!</button>
-        </form>
-      </div>
-    </section>
+  <section>
 
+  </section>
+  <section class="d-flex justify-content-end container-fluid">
+    <div class="col-3 p-2">
+        <form @submit.prevent="searchPosts()">
+          <div class="input-group mb-3">
+            <input class="query-form" type="text" v-model="search.query" placeholder="Search" aria-label="Search"
+              aria-describedby="Search">
+            <button class="btn btn-outline-dark" id="search" type="submit" ><i class="mdi mdi-magnify"></i></button>
+          </div>
+        </form>
+    </div>
+  </section>
+  <div>
+    <CommentCard />
+  </div>
   <div class="p-4" style="text-align: center;">
-    <button :disabled="!newer" @click="changePage(newer)" class="btn btn-light">Previous</button>
+    <span class="pe-1">
+      <button :disabled="!newer" @click="changePage(newer)" class="btn btn-light">Previous</button>
+    </span>
     <button :disabled="!older" @click="changePage(older)" class="btn btn-light">Next</button>
   </div>
   <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
@@ -35,48 +35,52 @@ import { logger } from "../utils/Logger.js";
 import { postsService } from '../services/PostsService.js'
 import { computed, onMounted, ref } from "vue";
 import { AppState } from "../AppState.js";
+import CommentCard from "../components/CommentCard.vue";
 
 export default {
-  setup() {
-    const editable = ref({})
-    onMounted(()=> {getPosts();
-    async function getPosts(){
-    try {
-      logger.log('Home Page Gets')
-      await postsService.getPosts();
-    } 
-    catch (error) {
-      Pop.error(error)
-    }
-  }
-  });
-    return {
-      editable,
-      posts: computed(() => AppState.posts),
-      older: computed(()=> AppState.older),
-      newer: computed(()=> AppState.newer),
-      account: computed(() => AppState.account),
-
-      async changePage(url){
-        try {
-          await postsService.changePage(url)
-        } catch (error) {
-          Pop.error(error)
-        }
-      },
-      async createPost(){
-        try {
-          logger.log('POSTING!!')
-          const post = editable.value
-          await postsService.createPost(post)
-          
-        } catch (error) {
-          Pop.error(error)
-        }
-      }
-
-    }
-  }
+    setup() {
+        
+        const search = ref({});
+        onMounted(() => {
+            getPosts();
+            async function getPosts() {
+                try {
+                    // logger.log("Home Page Gets");
+                    await postsService.getPosts();
+                }
+                catch (error) {
+                    Pop.error(error);
+                }
+            }
+        });
+        return {
+            search,
+            posts: computed(() => AppState.posts),
+            older: computed(() => AppState.older),
+            newer: computed(() => AppState.newer),
+            account: computed(() => AppState.account),
+            async changePage(url) {
+                try {
+                    await postsService.changePage(url);
+                }
+                catch (error) {
+                    Pop.error(error);
+                }
+            },
+            
+            async searchPosts() {
+                try {
+                    const query = search.value;
+                    logger.log('SEARCHING!')
+                    await postsService.searchPosts(query);
+                }
+                catch (error) {
+                    Pop.error(error);
+                }
+            }
+        };
+    },
+    components: { CommentCard }
 }
 </script>
 
@@ -87,10 +91,8 @@ export default {
   place-content: center;
   text-align: center;
   user-select: none;
-
   .home-card {
     width: 50vw;
-
     >img {
       height: 200px;
       max-width: 200px;
@@ -100,7 +102,6 @@ export default {
     }
   }
 }
-
 button{
   width: 100px;
 }
@@ -108,11 +109,9 @@ button{
   width: 50em;
   height: 7em;
 }
-
 .url-form{
   width: 53em;
 }
-
 #profile-img {
 height: 100px;
 width: 100px;
