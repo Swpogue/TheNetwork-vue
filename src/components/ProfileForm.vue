@@ -32,6 +32,10 @@
     <input name="linkedin" class="form-control" placeholder="linkedin" type="url" v-model="editable.linkedin">
     <label for="linkedin">Linkedin:</label>
   </div>
+  <div class="form-floating mb-3">
+    <input name="resume" class="form-control" placeholder="resume" type="url" v-model="editable.resume">
+    <label for="resume">Resume:</label>
+  </div>
   <div class="input-text">
     <input v-model="editable.graduated" type="checkbox">
       <label class="px-3" for="graduated">Graduated?</label>

@@ -34,7 +34,7 @@ export default {
   --main-height: calc(100vh - 32px - 64px);
 }
 #banner{
-  justify-content: end;
+  justify-content: center;
 }
 
 footer {

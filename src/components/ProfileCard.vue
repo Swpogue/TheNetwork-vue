@@ -20,6 +20,7 @@
             <i class="mdi mdi-linkedin"></i>
           </a>
         </p>
+        {{ profile.resume }}
       </div>
     </div>
   </div>
