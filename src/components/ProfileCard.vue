@@ -20,7 +20,11 @@
             <i class="mdi mdi-linkedin"></i>
           </a>
         </p>
-        {{ profile.resume }}
+        <p v-if="profile.resume" class="px-2">Resume:
+          <a :href="profile.resume" target="_blank" rel="noopener">
+            <i class="mdi mdi-file-account"></i>
+          </a>
+        </p>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <template>
   
 <div class="col-2 m-2" v-for="a in ads" :key="a.id">
-  <img :src="a?.square" alt="">
+  <img class="img-fluid" :src="a?.square" alt="">
 </div>
 
 </template>

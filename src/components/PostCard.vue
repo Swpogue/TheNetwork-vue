@@ -1,13 +1,13 @@
 <template>
   <div class="card my-2 elevation-4">
     <div class="card-body">
-      <div class="row ">
+      <div class="row">
         <div class="col-12 d-flex justify-content-between">
           <router-link :to="{ name: 'Profile', params: { id: post?.creatorId } }">
-            <img class="rounded-circle post-imgUrl" :src="post?.profilePic" :alt="post?.creator.name">
+            <img class="img-fluid rounded-circle post-imgUrl" :src="post?.profilePic" :alt="post?.creator.name">
             <p class="fw-bold pt-2">{{ post?.creator.name }}</p>
           </router-link>
-          <img class="rounded post-img" :src="post?.imgUrl" :alt="post?.creator.name">
+          <img class="img-fluid rounded post-img" :src="post?.imgUrl" :alt="post?.creator.name">
         </div>
       </div>
 
