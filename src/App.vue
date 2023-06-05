@@ -42,4 +42,8 @@ footer {
   place-content: center;
   height: 32px;
 }
+
+main {
+background-color: rgb(134, 122, 122);
+}
 </style>

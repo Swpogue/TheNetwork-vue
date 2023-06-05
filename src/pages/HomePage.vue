@@ -2,7 +2,7 @@
   <section>
 
   </section>
-  <section class="d-flex justify-content-end container-fluid">
+  <section class="d-flex justify-content-center container-fluid">
     <div class="col-3 p-2">
         <form @submit.prevent="searchPosts()">
           <div class="input-group mb-3">
@@ -104,6 +104,10 @@ export default {
 }
 button{
   width: 100px;
+}
+
+#search{
+  background-color: rgb(84, 59, 128);
 }
 .comment-form{
   width: 50em;
