@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card mb-2">
     <div class="card-body">
       <div class="profile-card mb-2 text-center">
         <p class="text-center mb-0">
